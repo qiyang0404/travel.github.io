@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="elementui/index.css">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="js/vue.js"></script>
+    <script src="elementui/index.js"></script>
+    <script ref="components/index.vue"></script>
+</head>
+<body>
+
+<div id="div">
+    <el-container>
+        <!-- 头部-->
+        <el-header >
+            <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" active-text-color="black">
+                <el-menu-item index="1" ><a href="index.html" target="_blank">首页</a></el-menu-item>
+                <el-menu-item index="2" >关于我们</el-menu-item>
+                <el-menu-item index="3" ><a href="product.html" target="_blank">产品中心</a></el-menu-item>
+                <el-menu-item index="4" >用户案例</el-menu-item>
+                <el-menu-item index="5"><a href="https://www.ele.me" target="_blank">联系我们</a></el-menu-item>
+
+            </el-menu>
+        </el-header>
+
+        <!-- 中间部分 -->
+        <el-main >
+            <p>产品中心</p>
+        </el-main>
+    </el-container>
+</div>
+</body>
+<script>
+    new Vue({
+
+        el: '#div',
+        data:{
+
+        },
+        method:{
+
+        },
+        mounted: {
+
+
+        }
+
+    });
+</script>
+</html>

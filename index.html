@@ -1,358 +1,220 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>黑马旅游网</title>
-    <!-- Bootstrap -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生管理系统</title>
+    <link rel="stylesheet" href="elementui/index.css">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="js/vue.js"></script>
+    <script src="elementui/index.js"></script>
+    <script ref="components/index.vue"></script>
+    <style>
+        .el-carousel__item h3 {
+            color: #fefff9;
+            font-size: 14px;
+            opacity: 0.75;
+            line-height: 300px;
+            margin: 0;
+        }
+
+        .el-carousel__item:nth-child(2n) {
+            background-color: #99a9bf;
+        }
+
+        .el-carousel__item:nth-child(2n+1) {
+            background-color: #d3dce6;
+        }
+
+        img {
+            /*设置图片宽度和浏览器宽度一致*/
+            width: 100%;
+            height: inherit;
+        }
+
+        .el-header, .el-footer {
+            background-color: #fefff9;
+            color: #fefff9;
+            text-align: center;
+            line-height: 60px;
+        }
+
+        .el-aside {
+            background-color: #D3DCE6;
+            color: #333;
+            text-align: center;
+            line-height: 200px;
+        }
+
+        .el-main {
+            background-color: #fefff9;
+            color: #fefff9;
+            text-align: center;
+            line-height: 160px;
+        }
+
+        body > .el-container {
+            margin-bottom: 0px;
+        }
+
+        .el-container:nth-child(5) .el-aside,
+        .el-container:nth-child(6) .el-aside {
+            line-height: 260px;
+        }
+
+        .el-container:nth-child(7) .el-aside {
+            line-height: 320px;
+        }
+
+
+        .word {
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+        }
+
+    </style>
 </head>
 <body>
-<!--引入头部-->
-<div id="header"></div>
-<!-- banner start-->
-<section id="banner">
-    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="2000">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-        </ol>
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner" role="listbox">
-            <div class="item active">
-                <img src="images/banner_1.jpg" alt="">
+<div id="div">
+    <el-container>
+        <!-- 头部-->
+        <el-header>
+            <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+                <el-menu-item index="1"><a href="index.html" target="_blank">首页</a></el-menu-item>
+                <el-menu-item index="2">关于我们</el-menu-item>
+                <el-menu-item index="3"><a href="product.html" target="_blank">产品中心</a></el-menu-item>
+                <el-menu-item index="4">用户案例</el-menu-item>
+                <el-menu-item index="5"><a href="https://www.ele.me" target="_blank">联系我们</a></el-menu-item>
+            </el-menu>
+        </el-header>
+
+        <!-- 中间部分 -->
+        <el-main>
+            <!--动态将图片轮播图的容器高度设置成与图片一致-->
+            <div>
+                <el-carousel :interval="4000" type="card" height="400px">
+                    <!--遍历图片地址,动态生成轮播图-->
+                    <el-carousel-item v-for="item in img_list" :key="item">
+                        <img :src="item" alt="">
+                    </el-carousel-item>
+                </el-carousel>
             </div>
-            <div class="item">
-                <img src="images/banner_2.jpg" alt="">
+            <div>
+                <center><h1 color="black" font-size="500px" style="line-height:1px"><font color="black">全屋定制专家</font>
+                </h1></center>
+                <center><p style="line-height:100px"><font color="black">让家人住的更舒心更放心</font></p></center>
             </div>
-            <div class="item">
-                <img src="images/banner_3.jpg" alt="">
-            </div>
-        </div>
-        <!-- Controls -->
-        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-</section>
-<!-- banner end-->
-<!-- 旅游 start-->
-<section id="content">
-    <!-- 黑马精选start-->
-    <section class="hemai_jx">
-        <div class="jx_top">
-            <div class="jx_tit">
-                <img src="images/icon_5.jpg" alt="">
-                <span>黑马精选</span>
-            </div>
-            <!-- Nav tabs -->
-            <ul class="jx_tabs" role="tablist">
-                <li role="presentation" class="active">
-                    <span></span>
-                    <a href="#popularity" aria-controls="popularity" role="tab" data-toggle="tab">人气旅游</a>
-                </li>
-                <li role="presentation">
-                    <span></span>
-                    <a href="#newest" aria-controls="newest" role="tab" data-toggle="tab">最新旅游</a>
-                </li>
-                <li role="presentation">
-                    <span></span>
-                    <a href="#theme" aria-controls="theme" role="tab" data-toggle="tab">主题旅游</a>
-                </li>
-            </ul>
-        </div>
-        <div class="jx_content">
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="popularity">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_4.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_4.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_4.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_4.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="newest">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_1.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_1.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_1.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_1.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="theme">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_2.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_2.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_2.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_2.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
+            <div class="jx_content">
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="popularity">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <a href="javascript:;">
+                                    <img src="img\dingzhi1.png" alt="">
+
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="javascript:;">
+                                    <img src="img\dingzhi2.png" alt="">
+
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="javascript:;">
+                                    <img src="img\dingzhi3.png" alt="">
+
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="javascript:;">
+                                    <img src="img\dingzhi4.png" alt="">
+
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- 黑马精选end-->
-    <!-- 国内游 start-->
-    <section class="hemai_jx">
-        <div class="jx_top">
-            <div class="jx_tit">
-                <img src="images/icon_6.jpg" alt="">
-                <span>国内游</span>
+
+            <div class="why_select">
+                <dl>
+                    <dt class="fl">
+                        <img src="images/icon_1.jpg" alt="">
+                    </dt>
+                    <dd>
+                        <h1>产品齐全</h1>
+                        <h2>产品全自主选，随心买</h2>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt class="fl">
+                        <img src="images/icon_2.jpg" alt="">
+                    </dt>
+                    <dd>
+                        <h1>便利快捷</h1>
+                        <h2>24小时不打烊，随时买</h2>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt class="fl">
+                        <img src="images/icon_3.jpg" alt="">
+                    </dt>
+                    <dd>
+                        <h1>安全支付</h1>
+                        <h2>知名支付工具，放心买</h2>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt class="fl">
+                        <img src="images/icon_4.jpg" alt="">
+                    </dt>
+                    <dd style="margin-right:0px;">
+                        <h1>贴心服务</h1>
+                        <h2>客服全年无休，安心买</h2>
+                    </dd>
+                </dl>
             </div>
-        </div>
-        <div class="heima_gn">
-            <div class="guonei_l">
-                <img src="images/guonei_1.jpg" alt="">
+            <div class="company">
+                <p>江苏传智播客教育科技股份有限公司 版权所有Copyright 2006-2018, All Rights Reserved 苏ICP备16007882</p>
             </div>
-            <div class="guone_r">
-                <div class="row">
-                    <div class="col-md-4">
-                        <a href="route_detail.html">
-                            <img src="images/jiangxuan_4.jpg" alt="">
-                            <div class="has_border">
-                                <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="route_detail.html">
-                            <img src="images/jiangxuan_4.jpg" alt="">
-                            <div class="has_border">
-                                <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="route_detail.html">
-                            <img src="images/jiangxuan_4.jpg" alt="">
-                            <div class="has_border">
-                                <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="route_detail.html">
-                            <img src="images/jiangxuan_4.jpg" alt="">
-                            <div class="has_border">
-                                <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="route_detail.html">
-                            <img src="images/jiangxuan_4.jpg" alt="">
-                            <div class="has_border">
-                                <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="route_detail.html">
-                            <img src="images/jiangxuan_4.jpg" alt="">
-                            <div class="has_border">
-                                <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- 国内游 end-->
-    <!-- 境外游 start-->
-    <section class="hemai_jx">
-        <div class="jx_top">
-            <div class="jx_tit">
-                <img src="images/icon_7.jpg" alt="">
-                <span>境外游</span>
-            </div>
-        </div>
-        <div class="heima_gn">
-            <div class="guonei_l">
-                <img src="images/jiangwai_1.jpg" alt="">
-            </div>
-            <div class="guone_r">
-                <div class="row">
-                    <div class="col-md-4">
-                        <a href="route_detail.html">
-                            <img src="images/jiangxuan_4.jpg" alt="">
-                            <div class="has_border">
-                                <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="route_detail.html">
-                            <img src="images/jiangxuan_4.jpg" alt="">
-                            <div class="has_border">
-                                <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="route_detail.html">
-                            <img src="images/jiangxuan_4.jpg" alt="">
-                            <div class="has_border">
-                                <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="route_detail.html">
-                            <img src="images/jiangxuan_4.jpg" alt="">
-                            <div class="has_border">
-                                <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="route_detail.html">
-                            <img src="images/jiangxuan_4.jpg" alt="">
-                            <div class="has_border">
-                                <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="route_detail.html">
-                            <img src="images/jiangxuan_4.jpg" alt="">
-                            <div class="has_border">
-                                <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- 境外游 end-->
-</section>
-<!-- 旅游 end-->
-<!--导入底部-->
-<div id="footer"></div>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="js/jquery-3.3.1.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
-<!--导入布局js，共享header和footer-->
-<script type="text/javascript" src="js/include.js"></script>
+        </el-main>
+
+
+
+    </el-container>
+</div>
 </body>
+
+<script>
+    new Vue({
+
+        el: '#div',
+        data: {
+            img_list: [
+                "img/banner_1.jpg",
+                "img/banner_2.jpg",
+                "img/banner_3.jpg",
+            ],
+            // 图片父容器高度
+            bannerHeight: 1000,
+            // 浏览器宽度
+            screenWidth: 0,
+            activeIndex: '1',
+        },
+        method: {},
+        mounted: {
+
+            // 窗口大小发生改变时,调用一次
+        }
+
+    });
+</script>
 </html>
